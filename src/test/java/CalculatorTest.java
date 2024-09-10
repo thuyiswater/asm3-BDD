@@ -104,34 +104,34 @@ public class CalculatorTest {
 
     @Test
     public void gcdOnePositiveOneNegativeNumber() {
-        String input = "7\n27\n-18\n0\n";
+        String input = "7\n100\n-20\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         initCalculator();
 
         String output = outputStream.toString();
-        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 27 and -18 is 9"));
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 100 and -20 is 20"));
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
     @Test
     public void gcdTwoNegativeNumbers() {
-        String input = "7\n27\n-18\n0\n";
+        String input = "7\n-72\n-27\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         initCalculator();
 
         String output = outputStream.toString();
-        assertTrue(output.contains("The Greatest Common Divisor (GCD) of -27 and -18 is 9"));
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of -72 and -27 is 9"));
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
     @Test
     public void gcdWithOneNumberIsZero() {
-        String input = "7\n27\n-0\n0\n";
+        String input = "7\n127\n0\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         initCalculator();
 
         String output = outputStream.toString();
-        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 27 and 0 is 27"));
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 127 and 0 is 127"));
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
@@ -155,7 +155,80 @@ public class CalculatorTest {
         initCalculator();  // Method that runs gcd()
     }
 
+    @Test
+    public void lcmTwoPositiveNumbers() {
+        String input = "8\n4\n5\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
 
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Least Common Multiple (LCM) of 4 and 5 is 20"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void lcmOnePositiveOneNegativeNumber() {
+        String input = "8\n27\n-2\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Least Common Multiple (LCM) of 27 and -2 is 54"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void lcmTwoNegativeNumbers() {
+        String input = "8\n-30\n-12\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Least Common Multiple (LCM) of -30 and -12 is 60"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void lcmWithOneNumberIsZero() {
+        String input = "8\n203\n0\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Least Common Multiple (LCM) of 203 and 0 is 0"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void lcmTwoEqualNumbers() {
+        String input = "8\n123\n123\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Least Common Multiple (LCM) of 123 and 123 is 123"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void lcmTwoPrimeNumbers() {
+        String input = "8\n13\n17\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Least Common Multiple (LCM) of 13 and 17 is 221"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void lcmInvalidInput() {
+        // Simulating valid and invalid input
+        String input = "8\na\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        initCalculator();  // Method that runs gcd()
+    }
 
 //    @Test
 }
