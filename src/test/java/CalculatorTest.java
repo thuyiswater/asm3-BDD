@@ -119,4 +119,48 @@ public class CalculatorTest {
         assertTrue(output.contains("Support integer only!"));
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
+
+    @Test
+    public void powerPass() {
+        String input = "6\n2\n3\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("2 ^ 3 = 8"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void powerNegativeRoot() {
+        String input = "6\n2\n-2\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Does not support negative root number"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void powerFirstNumChar() {
+        String input = "6\nabc\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void powerSecondNumChar() {
+        String input = "6\n2\nxyz\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
 }
