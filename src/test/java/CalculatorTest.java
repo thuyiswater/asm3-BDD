@@ -13,8 +13,6 @@ import org.junit.Test;
 public class CalculatorTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private final ByteArrayInputStream inputStream = null;
-    private final PrintStream originalIn = System.out;
 
     @Before
     public void setUp() {
@@ -89,5 +87,36 @@ public class CalculatorTest {
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
-//    @Test
+    @Test
+    public void moduloWZero() {
+        String input = "5\n10\n0\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Cannot modulo by zero!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void moduloFirstNumChar() {
+        String input = "5\nabc\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void moduloSecondNumChar() {
+        String input = "5\n10\nxyz\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
 }
