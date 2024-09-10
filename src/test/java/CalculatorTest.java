@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 
 import org.junit.After;
 import org.junit.Test;
@@ -88,6 +90,72 @@ public class CalculatorTest {
         assertTrue(output.contains("10 % 3 = 1"));
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
+
+    @Test
+    public void gcdTwoPositiveNumbers() {
+        String input = "7\n27\n18\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 27 and 18 is 9"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void gcdOnePositiveOneNegativeNumber() {
+        String input = "7\n27\n-18\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 27 and -18 is 9"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void gcdTwoNegativeNumbers() {
+        String input = "7\n27\n-18\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of -27 and -18 is 9"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void gcdWithOneNumberIsZero() {
+        String input = "7\n27\n-0\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 27 and 0 is 27"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void gcdTwoPrimeNumbers() {
+        String input = "7\n13\n17\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Greatest Common Divisor (GCD) of 13 and 17 is 1"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void gcdInvalidInput() {
+        // Simulating valid and invalid input
+        String input = "7\na\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        initCalculator();  // Method that runs gcd()
+    }
+
+
 
 //    @Test
 }
