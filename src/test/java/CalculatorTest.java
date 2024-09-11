@@ -31,6 +31,104 @@ public class CalculatorTest {
         calculator.run();
     }
 
+    //Addition Testing
+    @Test
+    public void testAddition() {
+        // Simulate user input: 1 (Addition), 5, 3, 0 (Exit)
+        String input = "1\n5\n3\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
+
+        // Create the calculator instance and run it
+        // Run the calculator
+        initCalculator(); // Run the calculator
+        // Verify the output
+        String output = outputStream.toString();
+        assertTrue(output.contains("5 + 3 = 8")); // Check if the addition result is printed
+        assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
+    }
+
+
+    //Invalid Testing
+    @Test
+    public void testInvalidInput() {
+        // Simulate user input: 10 (Invalid option), 0 (Exit)
+        String input = "10\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
+        // Create the calculator instance and run it
+        initCalculator(); // Run the calculator
+        // Verify the output
+        String output = outputStream.toString();
+        assertTrue(output.contains("Invalid choice. Please select a valid option.")); // Check for invalid input message
+        assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
+    }
+
+    //Subtraction Testing
+    @Test
+    public void testSubtraction() {
+
+        String input = "2\n6\n4\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
+
+        // Create the calculator instance and run it
+        // Run the calculator
+        initCalculator();
+        // Verify the output
+        String output = outputStream.toString();
+        assertTrue(output.contains("6 - 4 = 2")); // Check if the addition result is printed
+        assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
+    }
+
+    @Test
+    public void testMultiplication(){
+
+        String input = "3\n2\n4\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
+
+        // Create the calculator instance and run it
+        // Run the calculator
+        initCalculator();
+        // Verify the output
+        String output = outputStream.toString();
+        assertTrue(output.contains("2 * 4 = 8")); // Check if the addition result is printed
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void testMultiplicationWithPositiveAndNegative() {
+        String input = "3\n-2\n4\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        // Initialize the calculator or any necessary setup
+        initCalculator();
+
+        // Capture the output
+        String output = outputStream.toString();
+
+        // Verify the output
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+
+        // Check if the multiplication result is not positive
+        String resultLine = output.lines()
+                .filter(line -> line.contains(" * "))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Multiplication result line not found in the output."));
+
+        // Extract the result from the line, assuming the format is "a * b = result"
+        String[] parts = resultLine.split("=");
+        if (parts.length < 2) {
+            throw new AssertionError("Result format is incorrect in the output.");
+        }
+
+        String resultString = parts[1].trim();
+
+        try {
+            int result = Integer.parseInt(resultString);
+            assertTrue(result <= 0, "Expected result to be non-positive but got: " + result);
+        } catch (NumberFormatException e) {
+            throw new AssertionError("Result is not a valid integer: " + resultString);
+        }
+    }
+
 
     @Test
     public void dividePass () {
