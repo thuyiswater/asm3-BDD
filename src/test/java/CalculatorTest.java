@@ -123,7 +123,7 @@ public class CalculatorTest {
 
         try {
             int result = Integer.parseInt(resultString);
-            assertTrue(result <= 0, "Expected result to be non-positive but got: " + result);
+            assertTrue("Expected result to be non-positive but got: " + result, result <= 0);
         } catch (NumberFormatException e) {
             throw new AssertionError("Result is not a valid integer: " + resultString);
         }
