@@ -146,13 +146,16 @@ public class CalculatorTest {
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void gcdInvalidInput() {
         // Simulating valid and invalid input
-        String input = "7\na\n";
+        String input = "7\nabc\n0\nb";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-
         initCalculator();  // Method that runs gcd()
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
     @Test
@@ -221,13 +224,76 @@ public class CalculatorTest {
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void lcmInvalidInput() {
         // Simulating valid and invalid input
-        String input = "8\na\n";
+        String input = "8\na\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
 
-        initCalculator();  // Method that runs gcd()
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void fibonacciPositiveNumber() {
+        // Simulating valid and invalid input
+        String input = "9\n7\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Fibonacci of 7 is 13"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void fibonacciOfZero() {
+        // Simulating valid and invalid input
+        String input = "9\n0\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Fibonacci of 0 is 0"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void fibonacciOfOne() {
+        // Simulating valid and invalid input
+        String input = "9\n1\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("The Fibonacci of 1 is 1"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void fibonacciNegativeNumber() {
+        // Simulating valid and invalid input
+        String input = "9\n-5\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Fibonacci is not defined for negative numbers"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+    @Test
+    public void fibonacciInvalidInput() {
+        // Simulating valid and invalid input
+        String input = "9\nabc\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        initCalculator();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Support integer only!"));
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
     }
 
 //    @Test
