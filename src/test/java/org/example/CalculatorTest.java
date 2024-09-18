@@ -34,7 +34,7 @@ public class CalculatorTest {
 
     //Addition Testing
     @Test
-    public void testAddition() {
+    public void testTwoPositiveNumAddition() {
         // Simulate user input: 1 (Addition), 5, 3, 0 (Exit)
         String input = "1\n5\n3\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
@@ -45,6 +45,21 @@ public class CalculatorTest {
         // Verify the output
         String output = outputStream.toString();
         assertTrue(output.contains("5 + 3 = 8")); // Check if the addition result is printed
+        assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
+    }
+
+    @Test
+    public void testTwoNegativeNumAddition() {
+        // Simulate user input: 1 (Addition), 5, 3, 0 (Exit)
+        String input = "1\n-4\n-6\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
+
+        // Create the calculator instance and run it
+        // Run the calculator
+        initCalculator(); // Run the calculator
+        // Verify the output
+        String output = outputStream.toString();
+        assertTrue(output.contains("-4 + -6 = -10")); // Check if the addition result is printed
         assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
     }
 
@@ -65,9 +80,9 @@ public class CalculatorTest {
 
     //Subtraction Testing
     @Test
-    public void testSubtraction() {
+    public void testTwoPositiveNumSubtraction() {
 
-        String input = "2\n6\n4\n0\n";
+        String input = "2\n10\n4\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
 
         // Create the calculator instance and run it
@@ -75,14 +90,14 @@ public class CalculatorTest {
         initCalculator();
         // Verify the output
         String output = outputStream.toString();
-        assertTrue(output.contains("6 - 4 = 2")); // Check if the addition result is printed
+        assertTrue(output.contains("10 - 4 = 6")); // Check if the addition result is printed
         assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
     }
 
     @Test
-    public void testMultiplication(){
+    public void testSubtractionASmallerNumberFromALargerNumber() {
 
-        String input = "3\n2\n4\n0\n";
+        String input = "2\n5\n7\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
 
         // Create the calculator instance and run it
@@ -90,13 +105,102 @@ public class CalculatorTest {
         initCalculator();
         // Verify the output
         String output = outputStream.toString();
-        assertTrue(output.contains("2 * 4 = 8")); // Check if the addition result is printed
+        assertTrue(output.contains("5 - 7 = -2")); // Check if the addition result is printed
+        assertTrue(output.contains("Exiting the calculator. Goodbye!")); // Check if the exit message is printed
+    }
+
+
+    @Test
+    public void testMultiplicationWithTwoPositive() {
+        String input = "3\n6\n7\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        // Initialize the calculator or any necessary setup
+        initCalculator();
+
+        // Capture the output
+        String output = outputStream.toString();
+
+        // Verify the output
         assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+
+        // Check if the multiplication result is not positive
+        String resultLine = output.lines()
+                .filter(line -> line.contains(" * "))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Multiplication result line not found in the output."));
+
+        // Extract the result from the line, assuming the format is "a * b = result"
+        String[] parts = resultLine.split("=");
+        if (parts.length < 2) {
+            throw new AssertionError("Result format is incorrect in the output.");
+        }
+
+        String resultString = parts[1].trim();
+
+        try {
+            int result = Integer.parseInt(resultString);
+            assertTrue("Expected result to be non-positive but got: " + result, result >= 0);
+        } catch (NumberFormatException e) {
+            throw new AssertionError("Result is not a valid integer: " + resultString);
+        }
+    }
+
+    @Test
+    public void testMultiplicationWithZero(){
+
+        String input = "3\n8\n0\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes())); // Redirect input stream
+
+        // Create the calculator instance and run it
+        // Run the calculator
+        initCalculator();
+        // Verify the output
+        String output = outputStream.toString();
+        assertTrue(output.contains("8 * 0 = 0")); // Check if the addition result is printed
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+    }
+
+
+    @Test
+    public void testMultiplicationWithTwoNegative() {
+        String input = "3\n-2\n-4\n0\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        // Initialize the calculator or any necessary setup
+        initCalculator();
+
+        // Capture the output
+        String output = outputStream.toString();
+
+        // Verify the output
+        assertTrue(output.contains("Exiting the calculator. Goodbye!"));
+
+        // Check if the multiplication result is not positive
+        String resultLine = output.lines()
+                .filter(line -> line.contains(" * "))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Multiplication result line not found in the output."));
+
+        // Extract the result from the line, assuming the format is "a * b = result"
+        String[] parts = resultLine.split("=");
+        if (parts.length < 2) {
+            throw new AssertionError("Result format is incorrect in the output.");
+        }
+
+        String resultString = parts[1].trim();
+
+        try {
+            int result = Integer.parseInt(resultString);
+            assertTrue("Expected result to be non-positive but got: " + result, result >= 0);
+        } catch (NumberFormatException e) {
+            throw new AssertionError("Result is not a valid integer: " + resultString);
+        }
     }
 
     @Test
     public void testMultiplicationWithPositiveAndNegative() {
-        String input = "3\n-2\n4\n0\n";
+        String input = "3\n-4\n5\n0\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         // Initialize the calculator or any necessary setup
