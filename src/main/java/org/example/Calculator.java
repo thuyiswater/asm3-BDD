@@ -1,3 +1,5 @@
+package org.example;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -215,7 +217,7 @@ public class Calculator {
     }
 
     public void run(){
-        System.out.println("========================== Welcome to Group Calculator =========================");
+        System.out.println("========================== Welcome to Group org.example.Calculator =========================");
         try {
             int choice = 10;
 
@@ -252,7 +254,7 @@ public class Calculator {
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("| Basic Operation  |        Advanced Operation       |          Other          |");
         System.out.println("--------------------------------------------------------------------------------");
-        System.out.println("|1. Addition       | 7. Greatest Common Divisor (GCD)| 0. Exist The Calculator |");
+        System.out.println("|1. Addition       | 7. Greatest Common Divisor (GCD)| 0. Exist The org.example.Calculator |");
         System.out.println("|2. Subtraction    | 8. Least Common Multiple (LCM)  |                         |");
         System.out.println("|3. Multiplication | 9. Fibonacci                    |                         |");
         System.out.println("|4. Division       |                                 |                         |");
